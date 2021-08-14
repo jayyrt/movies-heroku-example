@@ -21,6 +21,7 @@ massive({
 })
 
 app.get('/api/movies', getMovies)
+// app.post('/api/movies', addMovies)
 
 const PORT = 5050;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
