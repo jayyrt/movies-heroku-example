@@ -1,3 +1,4 @@
+require('dotevn').config()
 const express = require('express');
 const massive = require('massive');
 const { getMovies, addMovies } = require('./movieController');
@@ -7,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 massive({
-    connectionString: 'postgres://ecmdqxtlkkdvbx:7a47c696b5d4a080135131653a1a541cf6e2d0f4416adabdc6eb92f98daa9eb2@ec2-34-233-114-40.compute-1.amazonaws.com:5432/dc8fpsadvnobjh',
+    connectionString: process.env.CONNECTION_STRING,
     ssl: {
         rejectUnauthorized: false,
     }
@@ -23,5 +24,5 @@ massive({
 app.get('/api/movies', getMovies);
 app.post('/api/movies', addMovies);
 
-const PORT = 5050;
+const PORT = process.env.SERVER_PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
