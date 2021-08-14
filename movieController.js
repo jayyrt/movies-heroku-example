@@ -30,7 +30,33 @@ const addMovies = (req, res) => {
     })
 };
 
+const updateTheaterStatus = (req, res) => {
+    //get our db
+    const db = req.app.get('db');
+    //grab id of movie to update and update value for inTheaters
+    const { id } = req.params;
+    const { inTheaters } = req.query;
+    //call our SQL function exposed by massive
+    db.update_theater_status(id, inTheaters)
+     //send back 200 status
+    .then((movie) => res.status(200).send(movie))
+    //handle errors
+    .catch((e) => console.log(e));
+};
+
+const deleteMovie = (res, req) => {
+    const db = req.app.get('db');
+
+    const { id } = req.params;
+
+    db.delete_movie(id)
+    .then(() => res.sendStatus(200))
+    .catch((e) => console.log(e))
+};
+
 module.exports ={
     getMovies,
     addMovies,
+    updateTheaterStatus,
+    deleteMovie,
 }
