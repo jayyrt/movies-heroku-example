@@ -20,11 +20,17 @@ const addMovies = (req, res) => {
         inTheaters,
     } = req.body;
     //run SQL to add a movie
-    db.add_movies(title, runTime, inTheaters)
+    db.add_movie(title, runTime, inTheaters)
     //.then => send back 200
-}
+    .then(() => {
+        res.sendStatus(200);
+    })
+    .catch((e) => {
+        res.status(500).send(e);
+    })
+};
 
 module.exports ={
     getMovies,
-    addMovies
+    addMovies,
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 const massive = require('massive');
-const { getMovies } = require('./movieController');
+const { getMovies, addMovies } = require('./movieController');
 
 const app = express();
 
@@ -18,10 +18,10 @@ massive({
 })
 .catch((e) => {
     console.log('DB connection problem: ', e)
-})
+});
 
-app.get('/api/movies', getMovies)
-// app.post('/api/movies', addMovies)
+app.get('/api/movies', getMovies);
+app.post('/api/movies', addMovies);
 
 const PORT = 5050;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
